@@ -1,3 +1,10 @@
+        /// <summary>
+        /// Generates SaveId from save name
+        /// </summary>
+        /// <returns>
+        /// Returns an ID unique to the savedata name, used as a folder name for storing the savedata
+        /// \UDATA\[TitleId]\[SaveId]\savedata.file
+        /// </returns>
         string XapiSaveGameHashEncode(string name, int length)
         {
             //calculate hash value
