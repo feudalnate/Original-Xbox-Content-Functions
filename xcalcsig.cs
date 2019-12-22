@@ -20,9 +20,9 @@
             byte[] title_signature_key = new byte[0x10];
             byte[] roamable_signature;
 
-            //trim keys
-            Array.Copy(XboxCertificateKey, 0, cert_key, 0, 0x10); //copy first 0x10 bytes (0x14 total)
-            Array.Copy(TitleSignatureKey, 0, title_signature_key, 0, 0x10); //copy first 0x10 bytes (0x14 total)
+            //copy keys
+            Array.Copy(XboxCertificateKey, 0, cert_key, 0, 0x10);
+            Array.Copy(TitleSignatureKey, 0, title_signature_key, 0, 0x10);
 
             //calc auth key
             hmac_sha1 = new HMACSHA1(cert_key, true);
@@ -45,7 +45,7 @@
         /// This is the equivalent of calling XCalculateSignatureBegin, XCalculateSignatureUpdate, XCalculateSignatureEnd, and XapiConvertSignatureToNonRoamable within the Xbox XCalcSig API
         /// </summary>
         /// <param name="TitleSignatureKey">Signature key stored in the certificate for a given Xbox executable file (.xbe)</param>
-        /// <param name="XboxHDKey">A unique 20 byte (0x14) console key stored in the Xbox EEPROM configuration data</param>
+        /// <param name="XboxHDKey">A unique 16 byte (0x10) console key stored in the Xbox EEPROM configuration data</param>
         /// <param name="data">Data to be signed</param>
         /// <param name="index">Index to begin signature calculation</param>
         /// <param name="length">Number of bytes to include in signature calculation</param>
@@ -56,8 +56,8 @@
             byte[] roamable_signature;
             byte[] nonroamable_signature;
 
-            //trim keys
-            Array.Copy(XboxHDKey, 0, xbox_hd_key, 0, 0x10); //copy first 0x10 bytes (0x14 total)
+            //copy keys
+            Array.Copy(XboxHDKey, 0, xbox_hd_key, 0, 0x10); //copy 0x10 bytes
 
             //calc roamable signature
             roamable_signature = CalculateRoamable(TitleSignatureKey, data, index, length);
