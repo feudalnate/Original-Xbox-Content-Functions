@@ -11,7 +11,7 @@
         /// <param name="length">Number of bytes to include in signature calculation</param>
         byte[] CalculateRoamable(byte[] TitleSignatureKey, byte[] data, int index, int length)
         {
-            //key hard-coded in kernel. used for mixing the title signature into an 'auth' key which is used to the sign save data 
+            //key hard-coded in kernel. used for mixing the title signature key into an 'auth' key which is used to the sign save data 
             byte[] XboxCertificateKey = { 0x5C, 0x07, 0x33, 0xAE, 0x04, 0x01, 0xF7, 0xE8, 0xBA, 0x79, 0x93, 0xFD, 0xCD, 0x2F, 0x1F, 0xE0 };
 
             HMACSHA1 hmac_sha1;
@@ -25,7 +25,7 @@
             Array.Copy(TitleSignatureKey, 0, title_signature_key, 0, 0x10);
 
             //calc auth key
-            hmac_sha1 = new HMACSHA1(cert_key, true);
+            hmac_sha1 = new HMACSHA1(cert_key);
             Array.Copy(hmac_sha1.ComputeHash(title_signature_key), 0, auth_key, 0, 0x10);
             hmac_sha1.Dispose();
 
